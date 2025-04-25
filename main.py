@@ -744,8 +744,9 @@ class Game:
 
         hits = pg.sprite.spritecollide(self.player, self.portals, False)
         for hit in hits:
-            self.level += 1
-            self.setup()
+            if self.collected_coins >= 5:
+                self.level += 1
+                self.setup()
             
 
 
@@ -770,7 +771,11 @@ class Game:
         if self.mode == "game_over":
             text = font.render(str("Game Over"), True, "red")
             text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-            self.screen.blit(text, text_rect)     
+            self.screen.blit(text, text_rect)   
+
+        coin_screen = font.render(str(f"Coins: {self.collected_coins}"), True, "black")
+        coin_rect = coin_screen.get_rect(center=(50, 50))
+        self.screen.blit(coin_screen, coin_rect)  
 
                      
 
